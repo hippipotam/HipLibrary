@@ -28,7 +28,7 @@ void set_nonblock(int state)
 
 void set_nonblock_2(int fd, int state, int *flags)
 {
-	*flags = fcntl(fd, F_GETFL, 0);
+	if (state) *flags = fcntl(fd, F_GETFL, 0);
         fcntl(fd, F_SETFL, *flags | (state ? O_NONBLOCK : 0));
 }
 /*

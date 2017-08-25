@@ -18,14 +18,9 @@
 
 // Port numbers from Olinuxino-NANO documentation 
 // (table "The Linux implementations of pins", page 24)
-
 #define GPIO_MOSI	92	// PIN31
 #define GPIO_MISO	91	// PIN30
 #define GPIO_SCLK	23	// PIN29
-
-//#define GPIO_MOSI	"92"	// PIN31
-//#define GPIO_MISO	"91"	// PIN30
-//#define GPIO_SCLK	"23"	// PIN29
 
 // Port directions
 #define MOSI_DIR	0	// out
@@ -40,7 +35,6 @@
 #define SPI_SCLK_HIGH_TIME	500000
 
 #define ERR_MSG
-#define NODEBUG
 
 typedef enum EGPIOPins {
 	E_GPIO_MOSI = 0,

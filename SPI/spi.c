@@ -56,7 +56,6 @@ int SPI_init()
 void SPI_free()
 {
 	int i;
-	// TODO
 	printf("Set MOSI to LOW\n");
 	write_MOSI(LOW);
 	
@@ -66,114 +65,6 @@ void SPI_free()
 	}
 
 }
-
-/* Export or unexport gpio pins */
-/*int gpio_export(uint8_t export)
-{
-	int i, fd, res;
-
-	fd = open((export ? EXPORT_PATH : UNEXPORT_PATH), O_WRONLY);
-	if (fd < 0) {
-		perror((export ? EXPORT_PATH : UNEXPORT_PATH));
-		return fd;
-	}
-	for (i = 0; i < NUM_GPIO_PINS; i++) {
-#ifdef DEBUG_MSG
-		printf("[ DEBUG ] %s gpio%s (%s)...\n", (export ? "Export" : "Unexport"), spins[i].number, spins[i].name);
-#endif
-		res = write(fd, spins[i].number, spins[i].size_number);
-#ifdef ERR_MSG
-		if (res <= 0) perror("Error write");
-#endif
-	}
-	close(fd);
-	return res;
-}
-
-int gpio_set_direction()
-{
-	int i, fd, res;
-	char dir_path[STR_BUFFER_LENGTH];
-
-	for (i = 0; i < NUM_GPIO_PINS; i++) {
-		snprintf(dir_path, STR_BUFFER_LENGTH, "%sgpio%s/direction", GPIO_PATH, spins[i].number);
-
-		fd = open(dir_path, O_WRONLY);
-		if (fd < 0) {
-#ifdef ERR_MSG
-			perror(dir_path);
-#endif
-			continue; //return fd;
-		}
-		res = write(fd, spins[i].dir, spins[i].dir_size);
-#ifdef ERR_MSG
-		if (res <= 0) perror("Error write");
-#endif
-		close(fd);
-	}
-
-	return res;
-}
-
-/// Open GPIO pins /value (for write/read to/from)
-void open_gpioN_pins()
-{
-	int i;
-
-	for (i = 0; i < NUM_GPIO_PINS; i++) {
-		memset(spins[i].value, 0, STR_BUFFER_LENGTH);
-		snprintf(spins[i].value, STR_BUFFER_LENGTH, "%sgpio%s/value", GPIO_PATH, spins[i].number);
-#ifdef DEBUG_MSG
-		printf("[ DEBUG ] path=\"%s\", %s direction: %s\n", spins[i].value, spins[i].name, (strcmp(spins[i].dir, "out") ? "O_RDONLY" : "O_WRONLY"));
-#endif
-		spins[i].fd = open(spins[i].value, (strcmp(spins[i].dir, "out") ? O_RDONLY : O_WRONLY));
-		if (spins[i].fd < 0) {
-#ifdef ERR_MSG
-			perror(spins[i].value);
-#endif
-			continue;
-		}
-	}
-}
-*/
-
-/*
-void close_gpioN_pins()
-{
-	int i;
-	for (i = 0; i < NUM_GPIO_PINS; i++) {
-		close(spins[i].fd);
-	}
-}
-
-void gpio_write_bit(EGPIO_pins_t pin, uint8_t bit)
-{
-	int res = -1;
-#ifdef DEBUG_MSG
-	printf("[ DEBUG ] Write bit \"%c\" to gpio%s...", bit, spins[pin].number);
-	printf("(\"%s\")...", spins[pin].value);
-	printf("\n");
-#endif
-
-	res = write(spins[pin].fd, &bit, 1);
-#ifdef ERR_MSG
-	if (res < 0) perror("Write to gpio");
-#endif
-}
-
-uint8_t gpio_read_bit(EGPIO_pins_t pin)
-{
-	int res = -1;
-	uint8_t rdata = 0x00;
-
-	res = read(spins[pin].fd, &rdata, 1);
-#ifdef ERR_MSG
-	if (res < 0) perror("Read from gpio");
-#endif
-
-	return rdata;
-}
-*/
 
 void write_MOSI(uint8_t level)
 {

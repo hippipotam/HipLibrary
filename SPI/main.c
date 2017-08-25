@@ -1,7 +1,7 @@
 /*
  * main.c
  *
- *  Created on: 22 февр. 2017 г.
+ *  Created on: feb 22, 2017
  *      Author: mike
  */
 

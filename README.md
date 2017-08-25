@@ -4,3 +4,4 @@ This repository contains implementations of various protocols
 	2. Mice
 	3. I2C
 	4. GPIO
+	5. SPI

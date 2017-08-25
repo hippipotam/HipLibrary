@@ -10,7 +10,6 @@
 #ifndef GPIO_H_
 #define GPIO_H_
 
-#include <stdio.h>
 #include <inttypes.h>
 
 #define STR_BUFFER_LENGTH	80
@@ -22,21 +21,22 @@
 #define UNEXPORT_PATH	GPIO_PATH "unexport"
 
 typedef struct SGPIOPin {
-	int fd;
-	int pin;
-	int dir;	// 0: out, 1: in
-	char name[20];
-	char vpath[STR_BUFFER_LENGTH];
+	int fd;							// file descriptor
+	int pin;						// pin number
+	int dir;						// 0: out, 1: in
+	char name[20];					// pin name
+	char vpath[STR_BUFFER_LENGTH];	// path to "value" f.e. /sys/class/gpio/gpio25/value
+	int err;
 } GPIOPin_t;
 
 /* Export or unexport gpio pins */
 int gpio_export(uint16_t pnumber, uint8_t export);
 
-/* Set GPIO pin direction. May be "in" or "out" */
-int gpio_set_direction(uint16_t pnumber, int in);
+/* Set GPIO pin direction. May be 1 (in) or 0 (out) */
+int gpio_set_direction(uint16_t pnumber, uint8_t in);
 
 /* Open GPIO pins /value (for write/read to/from) */
-int gpio_open_pin(int pin, char *value_path, int size, int dir);
+int gpio_open_pin(int pin, int dir);
 
 /* Close GPIO pin */
 void gpio_close_pin(int fd);
@@ -44,7 +44,7 @@ void gpio_close_pin(int fd);
 /* Write bit to GPIO */
 void gpio_write_bit(const int fd, const uint8_t bit);
 
-/* read bit from GPIO */
-uint8_t gpio_read_bit(int fd);
+/* Read bit from GPIO */
+uint8_t gpio_read_bit(const int fd);
 
 #endif /* GPIO_H_ */

@@ -5,12 +5,14 @@
  *      Author: mike
  */
 
-#include "gpio.h"
+#include <stdio.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
+
+#include "gpio.h"
 
 /* Export or unexport gpio pins */
 int gpio_export(uint16_t pnumber, uint8_t export)
@@ -29,14 +31,14 @@ int gpio_export(uint16_t pnumber, uint8_t export)
 	}
 	
 	res = write(fd, pnum, strlen(pnum));
-	if (res <= 0) perror("Error write");
+	if (res <= 0) perror("Error export write");
 
 	close(fd);
 	return res;
 }
 
-/* Set GPIO pin direction. May be "in" or "out" */
-int gpio_set_direction(uint16_t pnumber, int in)
+/* Set GPIO pin direction. May be 1 (in) or 0 (out) */
+int gpio_set_direction(uint16_t pnumber, uint8_t in)
 {
 	int i, fd, res = 0;
 	char dir_path[STR_BUFFER_LENGTH];
@@ -56,22 +58,23 @@ int gpio_set_direction(uint16_t pnumber, int in)
 	}
 
 	res = write(fd, dir, strlen(dir));
-	if (res <= 0) perror("Error write");
+	if (res <= 0) perror("Error set direction write");
 	close(fd);
 
 	return res;
 }
 
 /* Open GPIO pin /value (for write/read to/from) */
-int gpio_open_pin(int pin, char *value_path, int size, int dir)
+int gpio_open_pin(int pin, int dir)
 {
 	int i, fd;
-
-	memset(value_path, 0, size);
-	snprintf(value_path, size, "%sgpio%d/value", GPIO_PATH, pin);
+	char vpath[STR_BUFFER_LENGTH]; // path to "value"
 	
-	fd = open(value_path, (dir ? O_WRONLY : O_RDONLY));
-	if (fd < 0) perror(value_path);
+	memset(vpath, 0, sizeof(vpath));
+	snprintf(vpath, sizeof(vpath), "%sgpio%d/value", GPIO_PATH, pin);
+	
+	fd = open(vpath, (dir ? O_WRONLY : O_RDONLY));
+	if (fd < 0) perror(vpath);
 	return fd;
 }
 
@@ -84,15 +87,15 @@ void gpio_close_pin(int fd)
 /* Write bit to GPIO */
 void gpio_write_bit(const int fd, const uint8_t bit)
 {
-	int res = -1;
+	int res;
 	res = write(fd, &bit, 1);
 	if (res < 0) perror("Write to gpio");
 }
 
-/* read bit from GPIO */
-uint8_t gpio_read_bit(int fd)
+/* Read bit from GPIO */
+uint8_t gpio_read_bit(const int fd)
 {
-	int res = -1;
+	int res;
 	uint8_t rdata = 0x00;
 
 	res = read(fd, &rdata, 1);
@@ -100,4 +103,3 @@ uint8_t gpio_read_bit(int fd)
 
 	return rdata;
 }
-

@@ -7,3 +7,4 @@ This repository contains implementations of various protocols
 	5. SPI
 	6. FBdev (need to be cleanup and refactor)
 	7. Bluetooth (need to be clean and refactor)
+	8. USB (need to be refactor and clean)

@@ -1,0 +1,112 @@
+    GSM AT COMMAND SET
+
+    Call Control
+
+ATA       Answer Command 
+ATD       Dial Command 
+ATH       Hang Up Call 
+ATL       Monitor Speaker Loudness 
+ATM       Monitor Speaker Mode 
+ATO       Go On-Line 
+ATP       Set Pulse Dial as Default 
+ATT       Set Tone Dial as Default 
+AT+CSTA   Select Type of Address 
+AT+CRC    Cellular Result Codes 
+
+    Data Card Control Commands
+
+ATI       Identification 
+ATS       Select an S-register 
+ATZ       Recall Stored Profile 
+AT&F      Restore Factory Settings 
+AT&V      View Active Configuration 
+AT&W      Store Parameters in Given Profile 
+AT&Y      Select Set as s Powerup Option 
+AT+CLCK   Facility Lock Command 
+AT+COLP   Connected Line Identification Presentation 
+AT+GCAP   Request Complete Capabilities List 
+AT+GMI    Request Manufacturer Identification 
+AT+GMM    Request Model Identification 
+AT+GMR    Request Revision Identification 
+AT+GSN    Request Product Serial Number Identification 
+
+    Phone Control Commands
+
+AT+CBC    Battery Charge 
+AT+CGMI   Request Manufacturer Identification 
+AT+CGMM   Request Model Identification 
+AT+CGMR   Request Revision Identification 
+AT+CGSN   Request Product Serial Number Identification 
+AT+CMEE   Report Mobile Equipment Error 
+AT+CPAS   Phone Activity Status 
+AT+CPBF   Find Phone Book Entries 
+AT+CPBR   Read Phone Book Entry 
+AT+CPBS   Select Phone Book Memory Storage 
+AT+CPBW   Write Phone Book Entry 
+AT+CSCS   Select TE Character Set 
+AT+CSQ    Signal Quality 
+
+    Computer Data Card Interface Commands
+
+ATE       Command Echo 
+ATQ       Result Code Suppression 
+ATV       Define Response Format 
+ATX       Response Range Selection 
+AT&C      Define DCD Usage 
+AT&D      Define DTR Usage 
+AT&K      Select Flow Control 
+AT&Q      Define Communications Mode Option 
+AT&S      Define DSR Option 
+AT+ICF    DTE-DCE Character Framing 
+AT+IFC    DTE-DCE Local Flow Control 
+AT+IPR    Fixed DTE Rate
+
+    ServiceAT+CLIP   Calling Line Identification Presentation 
+
+AT+CR     Service Reporting Control 
+AT+DR     Data Compression Reporting 
+AT+ILRR   DTE-DCE Local Rate Reporting
+
+    Network Communication Parameter Commands
+
+ATB       Communications Standard Option 
+AT+CBST   Select Bearer Service Type 
+AT+CEER   Extended Error Report 
+AT+CRLP   Radio Link Protocol 
+AT+DS     Data Compression
+
+    Miscellaneous Commands
+
+A/        Re-Execute Command Line 
+AT?       Command Help 
+AT*C      Start SMS Interpreter 
+AT*T      Enter SMS Block Mode Protocol 
+AT*V      Activate V.25bis Mode 
+AT*NOKIATEST 	Test Command 
+AT+CESP   Enter SMS Block Mode Protocol
+
+    SMS Commands SMS Text Mode
+
+AT+CSMS   Select Message Service 
+AT+CPMS   Preferred Message Storage 
+AT+CMGF   Message Format 
+AT+CSCA   Service Centre Address 
+AT+CSMP   Set Text Mode Parameters 
+AT+CSDH   Show Text Mode Parameters 
+AT+CSCB   Select Cell Broadcast Message Types 
+AT+CSAS   Save Settings 
+AT+CRES   Restore Settings 
+AT+CNMI   New Message Indications to TE 
+AT+CMGL   List Messages 
+AT+CMGR   Read Message 
+AT+CMGS   Send Message 
+AT+CMSS   Send Message from Storage 
+AT+CMGW   Write Message to Memory 
+AT+CMGD   Delete Message
+
+    SMS PDU Mode
+
+AT+CMGL   List Messages 
+AT+CMGR   Read Message 
+AT+CMGS   Send Message 
+AT+CMGW   Write Message to Memory

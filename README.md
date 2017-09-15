@@ -6,3 +6,4 @@ This repository contains implementations of various protocols
 	4. GPIO
 	5. SPI
 	6. FBdev (need to be cleanup and refactor)
+	7. Bluetooth (need to be clean and refactor)

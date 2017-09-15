@@ -1,0 +1,116 @@
+1. Install packages
+	# pacman -S bluez bluez-utils
+	# pacman -S bluez-tools extra/bluez-libs
+
+2. Check bluetooth status and start it if not started
+	# systemctl status bluetooth
+		* bluetooth.service - Bluetooth service
+		   Loaded: loaded (/usr/lib/systemd/system/bluetooth.service; disabled; vendor preset: disabled)
+		   Active: active (running) since Mon 2017-04-17 16:35:23 UTC; 14min ago
+		     Docs: man:bluetoothd(8)
+		 Main PID: 1512 (bluetoothd)
+		   Status: "Running"
+		   CGroup: /system.slice/bluetooth.service
+			   `-1512 /usr/lib/bluetooth/bluetoothd
+
+		Apr 17 16:35:22 alarm systemd[1]: Starting Bluetooth service...
+		Apr 17 16:35:23 alarm bluetoothd[1512]: Bluetooth daemon 5.44
+		Apr 17 16:35:23 alarm systemd[1]: Started Bluetooth service.
+		Apr 17 16:35:23 alarm bluetoothd[1512]: Starting SDP server
+		Apr 17 16:35:24 alarm bluetoothd[1512]: Bluetooth management interface 1.14 initialized
+
+-----------------------
+	if bluetooth not started...
+
+			Loaded: loaded (/usr/lib/systemd/system/bluetooth.service; disabled; vendor p
+			   Active: inactive (dead)
+			     Docs: man:bluetoothd(8)
+			...skipping...
+			* bluetooth.service - Bluetooth service
+			   Loaded: loaded (/usr/lib/systemd/system/bluetooth.service; disabled; vendor p
+			   Active: inactive (dead)
+			     Docs: man:bluetoothd(8)
+
+	# systemctl start bluetooth	
+-----------------------
+
+3. Run bluetoothctl
+	# bluetoothctl
+	[NEW] Controller 00:1A:7D:DA:71:0A alarm [default]
+	[bluetooth]#
+
+
+//------------------------
+4. Run bluetoothctl and pairing with device
+	
+	4.1. Run bluetoothctl and register agent	
+		root@alarm alarm]# bluetoothctl -a
+			[NEW] Controller 00:1A:7D:DA:71:0A alarm [default]
+			Agent registered
+	4.2. Power on
+	
+		[bluetooth]# power on
+			Changing power on succeeded
+			[CHG] Controller 00:1A:7D:DA:71:0A Powered: yes
+
+	4.3. Scan network
+		[bluetooth]# scan on
+			Discovery started
+			[CHG] Controller 00:1A:7D:DA:71:0A Discovering: yes
+
+			[CHG] Device 00:1D:98:15:AE:F4 LegacyPairing: no
+			[CHG] Device 00:1D:98:15:AE:F4 Name: Helen
+			[CHG] Device 00:1D:98:15:AE:F4 Alias: Helen
+			[CHG] Device 00:1D:98:15:AE:F4 LegacyPairing: yes
+
+	4.4. Pair with device
+		[bluetooth]# pair 00:1D:98:15:AE:F4
+			Attempting to pair with 00:1D:98:15:AE:F4
+			[CHG] Device 00:1D:98:15:AE:F4 Connected: yes
+			Request PIN code
+			[agent] Enter PIN code: 5244
+			[CHG] Device 00:1D:98:15:AE:F4 Modalias: bluetooth:v0001p002Cd0000
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 00000002-0000-1000-8000-0002ee000002
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 00001101-0000-1000-8000-00805f9b34fb
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 00001103-0000-1000-8000-00805f9b34fb
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 00001105-0000-1000-8000-00805f9b34fb
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 00001106-0000-1000-8000-00805f9b34fb
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 0000110a-0000-1000-8000-00805f9b34fb
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 0000110c-0000-1000-8000-00805f9b34fb
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 0000110e-0000-1000-8000-00805f9b34fb
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 00001112-0000-1000-8000-00805f9b34fb
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 00001116-0000-1000-8000-00805f9b34fb
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 0000111f-0000-1000-8000-00805f9b34fb
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 0000112d-0000-1000-8000-00805f9b34fb
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 0000112f-0000-1000-8000-00805f9b34fb
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 00001200-0000-1000-8000-00805f9b34fb
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 00005001-0000-1000-8000-0002ee000001
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 00005002-0000-1000-8000-0002ee000001
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 00005003-0000-1000-8000-0002ee000001
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 00005557-0000-1000-8000-0002ee000001
+			[CHG] Device 00:1D:98:15:AE:F4 UUIDs: 00005601-0000-1000-8000-0002ee000001
+			[CHG] Device 00:1D:98:15:AE:F4 ServicesResolved: yes
+			[CHG] Device 00:1D:98:15:AE:F4 Paired: yes
+			Pairing successful
+			[CHG] Device 00:1D:98:15:AE:F4 ServicesResolved: no
+			[CHG] Device 00:1D:98:15:AE:F4 Connected: no
+
+
+5. Start sms message program
+
+
+//=====================================================================
+Summary:
+	# systemctl status bluetooth
+	# systemctl start bluetooth
+	# bluetoothctl -a
+	[bluetooth]# power on
+	[bluetooth]# scan on
+	[bluetooth]# pair 00:1D:98:15:AE:F4
+		Pairing...
+
+	.. Next -> start program
+
+
+
+

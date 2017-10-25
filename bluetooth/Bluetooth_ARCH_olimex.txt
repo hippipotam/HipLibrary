@@ -111,6 +111,27 @@ Summary:
 
 	.. Next -> start program
 
+//=====================================================================
+Auto power-on after boot
 
+[root@alarm ~]# systemctl enable bluetooth
 
+By default, your Bluetooth adapter will not power on after a reboot. The former method by using hciconfig hci0 up is deprecated, see the release note. Now you just need to add the line AutoEnable=true in /etc/bluetooth/main.conf at the bottom in the [Policy] section:
+
+/etc/bluetooth/main.conf
+
+[Policy]
+AutoEnable=true
+
+//=====================================================================
+
+#!/bin/bash
+
+# enable bluetooth
+sudo systemctl start bluetooth
+
+sleep 1
+
+# run the program bluez
+echo -e 'power on\nconnect \t \nquit' | bluetoothctl
 

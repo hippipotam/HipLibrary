@@ -15,18 +15,18 @@
 #include "gpio.h"
 
 /* Export or unexport gpio pins */
-int gpio_export(uint16_t pnumber, uint8_t export)
+int gpio_export(uint16_t pnumber, uint8_t exp)
 {
 	int i, fd, res = 0;
 	char pnum[MAXGPIONAME];
 	
 	snprintf(pnum, MAXGPIONAME, "%d", pnumber);
-	printf("%s:\n", export ? "Export" : "Unexport"); 
+	printf("%s:\n", exp ? "Export" : "Unexport"); 
 	printf("    port=%d ('%s')\n", pnumber, pnum);	
 
-	fd = open((export ? EXPORT_PATH : UNEXPORT_PATH), O_WRONLY);
+	fd = open((exp ? EXPORT_PATH : UNEXPORT_PATH), O_WRONLY);
 	if (fd < 0) {
-		perror((export ? EXPORT_PATH : UNEXPORT_PATH));
+		perror((exp ? EXPORT_PATH : UNEXPORT_PATH));
 		return fd;
 	}
 	
@@ -42,7 +42,7 @@ int gpio_set_direction(uint16_t pnumber, uint8_t in)
 {
 	int i, fd, res = 0;
 	char dir_path[STR_BUFFER_LENGTH];
-	char *dir = in ? "in" : "out";
+	const char *dir = in ? "in" : "out";
 
 	snprintf(dir_path, STR_BUFFER_LENGTH, "%sgpio%d/direction", GPIO_PATH, pnumber);
 	
@@ -73,7 +73,7 @@ int gpio_open_pin(int pin, int dir)
 	memset(vpath, 0, sizeof(vpath));
 	snprintf(vpath, sizeof(vpath), "%sgpio%d/value", GPIO_PATH, pin);
 	
-	fd = open(vpath, (dir ? O_WRONLY : O_RDONLY));
+	fd = open(vpath, (dir ?  O_RDONLY : O_WRONLY));
 	if (fd < 0) perror(vpath);
 	return fd;
 }
@@ -85,15 +85,16 @@ void gpio_close_pin(int fd)
 }
 
 /* Write bit to GPIO */
-void gpio_write_bit(const int fd, const uint8_t bit)
-{
+void gpio_write_byte(const int fd, const uint8_t byte)
+{	
 	int res;
-	res = write(fd, &bit, 1);
+	const char *bt = byte ? "1" : "0";
+	res = write(fd, bt, strlen(bt));
 	if (res < 0) perror("Write to gpio");
 }
 
 /* Read bit from GPIO */
-uint8_t gpio_read_bit(const int fd)
+uint8_t gpio_read_byte(const int fd)
 {
 	int res;
 	uint8_t rdata = 0x00;

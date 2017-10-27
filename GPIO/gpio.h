@@ -20,6 +20,11 @@
 #define EXPORT_PATH		GPIO_PATH "export"
 #define UNEXPORT_PATH	GPIO_PATH "unexport"
 
+#define EXPORT		(uint8_t)0x01
+#define UNEXPORT	(uint8_t)0x00
+#define ENABLE		(uint8_t)0x01
+#define DISABLE		(uint8_t)0x00
+
 typedef struct SGPIOPin {
 	int fd;							// file descriptor
 	int pin;						// pin number
@@ -30,7 +35,7 @@ typedef struct SGPIOPin {
 } GPIOPin_t;
 
 /* Export or unexport gpio pins */
-int gpio_export(uint16_t pnumber, uint8_t export);
+int gpio_export(uint16_t pnumber, uint8_t exp);
 
 /* Set GPIO pin direction. May be 1 (in) or 0 (out) */
 int gpio_set_direction(uint16_t pnumber, uint8_t in);
@@ -42,9 +47,9 @@ int gpio_open_pin(int pin, int dir);
 void gpio_close_pin(int fd);
 
 /* Write bit to GPIO */
-void gpio_write_bit(const int fd, const uint8_t bit);
+void gpio_write_byte(const int fd, const uint8_t byte);
 
 /* Read bit from GPIO */
-uint8_t gpio_read_bit(const int fd);
+uint8_t gpio_read_byte(const int fd);
 
 #endif /* GPIO_H_ */

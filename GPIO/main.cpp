@@ -11,6 +11,7 @@
 #include <signal.h>
 #include "gpio.h"
 
+#define BLINK_TIME	20000
 
 bool g_quit = false;
 
@@ -46,13 +47,6 @@ int main(int argc, char *argv[])
 		perror("open_pin");
 		return 1;
 	}
-	FILE *f = fopen("/proc/loadavg", "r");
-	if (!f) {
-		perror("Open /proc/loadavg");
-		gpio_close_pin(pin_25.fd);
-		gpio_export(pin_25.pin, UNEXPORT);
-		return 1;
-	}
 
 	float freq = 0.0;
 	float time = 0;
@@ -73,7 +67,7 @@ int main(int argc, char *argv[])
 		time = freq * sec;
 		// Enable LED
 		gpio_write_byte(pin_25.fd, ENABLE);
-		usleep(time);
+		usleep(BLINK_TIME);
 		// Disable LED
 		gpio_write_byte(pin_25.fd, DISABLE);
 		usleep(time);
